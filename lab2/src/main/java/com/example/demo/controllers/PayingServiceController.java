@@ -17,20 +17,21 @@ import java.util.UUID;
 public class PayingServiceController {
     @Autowired
     PayingService payingService;
+
+    @Autowired
     DormRepository dormRepository;
 
     @PostMapping(path="/crDorm")
     public ResponseEntity<Void> createDorm(@RequestBody DormDto dormDto){
         Dorm dorm = new Dorm(dormDto.getDormNumber(),dormDto.getCleanliness(),
                 dormDto.getNumOfFreeRooms(),dormDto.getMonthPrice());
-
         payingService.addDorm(dorm);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(name="/pay")
+    @PostMapping(path="/pay")
     public void payForDorm(@RequestBody DormDto dormDto){
-        Dorm dorm = dormRepository.getOne(dormDto.getId());
+        Dorm dorm = dormRepository.findDormByNumber(dormDto.getDormNumber());
         payingService.payingForDorm(dorm);}
 
     @DeleteMapping("{dormId}")

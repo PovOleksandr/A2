@@ -1,22 +1,15 @@
 package com.example.demo.entities.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.UUID;
 
-@Entity
-@Table(name = "dorms")
 final public class DormDto {
     private int dormNumber;
     private int cleanliness;
     private int numOfFreeRooms;
     private int monthPrice;
     private int income = 0;
-    @Id
-    @GeneratedValue
     private UUID id;
+
 
     public DormDto(int dormNumber, int cleanliness, int numOfRooms, int monthPrice ){
         this.dormNumber = dormNumber;
@@ -47,5 +40,41 @@ final public class DormDto {
 
     public void increaceIncome( float value){ this.income += value; }
 
-    public UUID getId(){return this.id;}
+    public UUID getId(){return this.id; }
+
+    @Override
+    public String toString() {
+        return "DormDto{" +
+                "dormNumber=" + dormNumber +
+                ", cleanliness=" + cleanliness +
+                ", numOfFreeRooms=" + numOfFreeRooms +
+                ", monthPrice=" + monthPrice +
+                ", income=" + income +
+                ", id=" + id +
+                '}';
+    }
+
+    public void setDormNumber(int dormNumber) {
+        this.dormNumber = dormNumber;
+    }
+
+    public void setNumOfFreeRooms(int numOfFreeRooms) {
+        this.numOfFreeRooms = numOfFreeRooms;
+    }
+
+    public void setMonthPrice(int monthPrice) {
+        this.monthPrice = monthPrice;
+    }
+
+    public int getIncome() {
+        return income;
+    }
+
+    public void setIncome(int income) {
+        this.income = income;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

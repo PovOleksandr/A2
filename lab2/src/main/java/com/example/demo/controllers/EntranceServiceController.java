@@ -4,6 +4,7 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Dorm;
 import com.example.demo.entities.Student;
 import com.example.demo.entities.Watchman;
+import com.example.demo.entities.dto.EntranceDto;
 import com.example.demo.entities.dto.StudentDto;
 import com.example.demo.entities.dto.WatchmanDto;
 import com.example.demo.repo.StudentRepository;
@@ -21,9 +22,6 @@ public class EntranceServiceController {
     @Autowired
     EntranceService entranceService;
 
-    StudentRepository studentRepository;
-    WatchmanRepository watchmanRepository;
-
     @PostMapping(path="/crWatchman")
     public ResponseEntity<Void> createWatchman(@RequestBody WatchmanDto watchmanDto){
         Watchman watchman = new Watchman(watchmanDto.getName(),watchmanDto.getSurname(),
@@ -34,9 +32,9 @@ public class EntranceServiceController {
     }
 
     @PostMapping(path="/tryToEnter")
-    public void tryToEnter(@RequestBody WatchmanDto watchmanDto, @RequestBody StudentDto studentDto){
-        Student student = studentRepository.getOne(studentDto.getId());
-        Watchman watchman = watchmanRepository.getOne(watchmanDto.getId());
+    public void tryToEnter(@RequestBody EntranceDto entranceDto){
+        Student student = entranceDto.getStudent();
+        Watchman watchman = entranceDto.getWatchman();
         entranceService.tryToEnter(student, watchman);
     }
 

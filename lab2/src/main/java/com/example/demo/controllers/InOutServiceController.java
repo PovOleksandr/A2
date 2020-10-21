@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Dorm;
 import com.example.demo.entities.dto.DormDto;
+import com.example.demo.entities.dto.MoveInKickOutDto;
 import com.example.demo.entities.dto.StudentDto;
 import com.example.demo.repo.DormRepository;
 import com.example.demo.repo.StudentRepository;
@@ -19,9 +20,11 @@ import java.util.UUID;
 public class InOutServiceController {
     @Autowired
     InOutService ioService;
+    @Autowired
     PayingService payingService;
-
+    @Autowired
     StudentRepository studentRepository;
+    @Autowired
     DormRepository dormRepository;
 
     @PostMapping(path="/salary")
@@ -37,9 +40,9 @@ public class InOutServiceController {
     }
 
     @PostMapping(path="/moveIn")
-    public void moveIn(@RequestBody DormDto dormDto, @RequestBody StudentDto studentDto){
-        Student student = studentRepository.getOne(studentDto.getId());
-        Dorm dorm = dormRepository.getOne(dormDto.getId());
+    public void moveIn(@RequestBody MoveInKickOutDto moveInKickOutDto){
+        Student student = moveInKickOutDto.getStudent();
+        Dorm dorm = moveInKickOutDto.getDorm();
         ioService.moveIn(dorm,student);
     }
 

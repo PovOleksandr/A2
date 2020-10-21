@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Student;
+import com.example.demo.entities.dto.CleanDto;
 import com.example.demo.entities.dto.DormDto;
 import com.example.demo.entities.dto.JanitorDto;
 import com.example.demo.entities.dto.StudentDto;
@@ -21,13 +22,10 @@ public class CleanDormServiceController {
     @Autowired
     CleanDormService cleanDormService;
 
-    JanitorRepository janitorRepository;
-    DormRepository dormRepository;
-
     @PostMapping(path="/cleanDorm")
-    public void cleanDorm(@RequestBody JanitorDto janitorDto, @RequestBody DormDto dormDto){
-        Janitor janitor = janitorRepository.getOne(janitorDto.getId());
-        Dorm dorm = dormRepository.getOne(dormDto.getId());
+    public void cleanDorm(@RequestBody CleanDto cleanDto){
+        Janitor janitor = cleanDto.getJanitor();
+        Dorm dorm = cleanDto.getDorm();
         cleanDormService.cleanDorm(janitor,dorm);
     }
 

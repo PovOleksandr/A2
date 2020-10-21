@@ -6,8 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-@Entity
-@Table(name = "janitors")
+
 final public class JanitorDto extends PersonDto{
     private int cleaningQuality;
     @Id

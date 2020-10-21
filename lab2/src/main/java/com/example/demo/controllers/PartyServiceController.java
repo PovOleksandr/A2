@@ -14,11 +14,12 @@ public class PartyServiceController {
     @Autowired
     PartyService partyService;
 
+    @Autowired
     DormRepository dormRepository;
 
     @PostMapping
     public void party(@RequestBody DormDto dormDto){
-        Dorm dorm = dormRepository.getOne(dormDto.getId());
+        Dorm dorm = dormRepository.findDormByNumber(dormDto.getDormNumber());
         partyService.party(dorm);
     }
 }

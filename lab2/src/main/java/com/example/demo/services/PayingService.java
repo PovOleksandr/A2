@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class PayingService {
     @Autowired
     DormRepository dormRepository;
+    @Autowired
     StudentRepository studentRepository;
+
     public void payingForDorm(Dorm dorm){
         List<Student> toKick = new ArrayList<>();
         InOutService ioServ = new InOutService();
@@ -43,6 +45,7 @@ public class PayingService {
             student.monthSalary();
         }
     }
+
     @Transactional
     public void addDorm(Dorm dorm){
         dormRepository.save(dorm);

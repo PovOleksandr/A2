@@ -6,20 +6,20 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "dorms")
-final public class Dorm {
-    @Column
-    private int dormNumber;
-    @Column
-    private int cleanliness;
-    @Column
-    private int numOfFreeRooms;
-    @Column
-    private int monthPrice;
-    @Column
-    private int income = 0;
+public class Dorm {
     @Id
     @GeneratedValue
     private UUID id;
+
+    private int dormNumber;
+
+    private int cleanliness;
+
+    private int numOfFreeRooms;
+
+    private int monthPrice;
+
+    private int income = 0;
 
     public Dorm(int dormNumber,int cleanliness, int numOfRooms, int monthPrice ){
         this.dormNumber = dormNumber;
@@ -53,4 +53,40 @@ final public class Dorm {
     public void setId(){this.id = UUID.randomUUID();}
 
     public UUID getId(){return this.id;}
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setDormNumber(int dormNumber) {
+        this.dormNumber = dormNumber;
+    }
+
+    public void setNumOfFreeRooms(int numOfFreeRooms) {
+        this.numOfFreeRooms = numOfFreeRooms;
+    }
+
+    public void setMonthPrice(int monthPrice) {
+        this.monthPrice = monthPrice;
+    }
+
+    public int getIncome() {
+        return income;
+    }
+
+    public void setIncome(int income) {
+        this.income = income;
+    }
+
+    @Override
+    public String toString() {
+        return "Dorm{" +
+                "id=" + id +
+                ", dormNumber=" + dormNumber +
+                ", cleanliness=" + cleanliness +
+                ", numOfFreeRooms=" + numOfFreeRooms +
+                ", monthPrice=" + monthPrice +
+                ", income=" + income +
+                '}';
+    }
 }
