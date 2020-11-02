@@ -9,10 +9,12 @@ import com.example.demo.repo.StudentRepository;
 import com.example.demo.services.InOutService;
 import com.example.demo.entities.Student;
 import com.example.demo.services.PayingService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,12 +22,19 @@ import java.util.UUID;
 public class InOutServiceController {
     @Autowired
     InOutService ioService;
-    @Autowired
     PayingService payingService;
-    @Autowired
     StudentRepository studentRepository;
-    @Autowired
     DormRepository dormRepository;
+
+    @GetMapping
+    public ResponseEntity<List<Student>> show() {
+        return ResponseEntity.ok(ioService.getAllStudents());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Student> showById(@PathVariable UUID id) throws NotFoundException {
+        return ResponseEntity.ok(ioService.getStudentById(id));
+    }
 
     @PostMapping(path="/salary")
     public void getSalary(){payingService.getSalary();}

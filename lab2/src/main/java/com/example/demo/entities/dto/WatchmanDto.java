@@ -8,18 +8,25 @@ import java.util.UUID;
 
 @Entity
 @Table(name="watchmans")
-final public class WatchmanDto extends PersonDto{
+final public class WatchmanDto{
+    private String name;
+    private String surname;
+    private int salary;
+    private int cash;
     private int bribeNeeded;
     @Id
     @GeneratedValue
     private UUID id;
     public WatchmanDto(String name, String surname, int cash, int bribeNeeded, int salary){
-        super(name, surname, cash, salary);
+        this.name = name;
+        this.surname = surname;
+        this.cash = cash;
+        this.salary = salary;
         this.bribeNeeded = bribeNeeded;
     }
 
     public WatchmanDto() {
-        super("Ivan","Ivanov",0,0);
+
     }
 
     public int getBribeNeeded(){
@@ -27,4 +34,44 @@ final public class WatchmanDto extends PersonDto{
     }
 
     public UUID getId(){return this.id;}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public int getCash() {
+        return cash;
+    }
+
+    public void setCash(int cash) {
+        this.cash = cash;
+    }
+
+    public void setBribeNeeded(int bribeNeeded) {
+        this.bribeNeeded = bribeNeeded;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

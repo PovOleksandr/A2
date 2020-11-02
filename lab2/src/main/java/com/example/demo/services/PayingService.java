@@ -2,12 +2,14 @@ package com.example.demo.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.example.demo.entities.Student;
 import com.example.demo.entities.Dorm;
 import com.example.demo.repo.DormRepository;
 import com.example.demo.repo.StudentRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,10 +49,25 @@ public class PayingService {
     }
 
     @Transactional
+    public List<Dorm> getAllDorms(){
+        return dormRepository.findAll();
+    }
+
+    @Transactional
+    public Dorm getDormById(UUID id) throws NotFoundException {
+        Optional<Dorm> dorm = dormRepository.findById(id);
+        if (dorm.isPresent())
+            return dorm.get();
+        else
+            throw new NotFoundException(String.format("Dorm %s does not exists.",id));
+    }
+
+    @Transactional
     public void addDorm(Dorm dorm){
         dormRepository.save(dorm);
     }
 
+    @Transactional
     public void deleteById(UUID id){
         dormRepository.deleteById(id);
     }

@@ -10,10 +10,12 @@ import com.example.demo.entities.dto.WatchmanDto;
 import com.example.demo.repo.StudentRepository;
 import com.example.demo.repo.WatchmanRepository;
 import com.example.demo.services.EntranceService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +23,16 @@ import java.util.UUID;
 public class EntranceServiceController {
     @Autowired
     EntranceService entranceService;
+
+    @GetMapping
+    public ResponseEntity<List<Watchman>> show() {
+        return ResponseEntity.ok(entranceService.getAllWatchmans());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Watchman> showById(@PathVariable UUID id) throws NotFoundException {
+        return ResponseEntity.ok(entranceService.getWatchmanById(id));
+    }
 
     @PostMapping(path="/crWatchman")
     public ResponseEntity<Void> createWatchman(@RequestBody WatchmanDto watchmanDto){
